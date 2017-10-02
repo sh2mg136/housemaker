@@ -4,15 +4,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title – приложение ASP.NET</title>
+    <title>@ViewBag.Title</title>
     <!--
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     -->
+
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/carousel.css")
-    @Styles.Render("~/Content/font-awesome.min.css")   
-    @Scripts.Render("~/bundles/modernizr")
-    
+
 </head>
 <body>
 
@@ -26,10 +24,11 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
 
             <ul class="nav navbar-nav">
-                <li class="nav-item">@Html.ActionLink("Альбом", "Album", "Home", new { @class = "nav-link active" })</li>
-                <li class="nav-item">@Html.ActionLink("О нас", "About", "Home", new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("Контакт", "Contact", "Home", new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("Misc", "Contact", "Home", new { @class = "nav-link disabled" })</li>
+                <li class="nav-item">@Html.ActionLink("Альбом", "Album", "Home", new { area = "" }, new { @class = "nav-link active" })</li>
+                <li class="nav-item">@Html.ActionLink("О нас", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Контакт", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Carousel", "Index", "CarouselItems", new { area = "" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Misc", "Contact", "Home", new { area = "" }, new { @class = "nav-link disabled" })</li>
             </ul>
 
         </div>
@@ -44,14 +43,6 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/popper.min.js")
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    @Scripts.Render("~/bundles/holder.min.js")
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    @Scripts.Render("~/bundles/ie10-viewport-bug-workaround.js")
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -60,6 +51,33 @@
         <script>window.jQuery || document.write('<script src="../scripts/jquery-1.10.2.min.js"><\/script>')</script>
     -->
 
+    @Scripts.Render("~/bundles/jquery")
+
+    @Scripts.Render("~/bundles/popover")
+
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    @Scripts.Render("~/bundles/holder.min.js")
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    @Scripts.Render("~/bundles/ie10-viewport-bug-workaround.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('.carousel').carousel();
+
+        });
+
+        $('[data-toggle="tooltip"]').tooltip();
+                        
+    </script>
+
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

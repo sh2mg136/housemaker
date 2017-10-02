@@ -1,0 +1,103 @@
+﻿@model IEnumerable<housemaker.Models.CarouselItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsShownCarousel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Url)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Base64Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Headline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ButtonText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ButtonUrl)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsShownCarousel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Url)
+            </td>
+            <td>
+                <img height="100" src="@Html.DisplayFor(modelItem => item.Base64Image)" alt="NO IMAGE" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Headline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ButtonText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ButtonUrl)
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "fa fa-edit fa-lg", data_toggle = "tooltip", title = "Редактировать" })
+            </td>
+            <td data-toggle="tooltip" title="View">
+                @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "fa fa-info fa-lg", data_toggle = "tooltip", title = "Просмотр" })
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "fa fa-remove fa-lg", data_toggle = "tooltip", title = "Удалить элемент" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+        });
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
+
+}

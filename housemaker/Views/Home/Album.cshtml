@@ -1,8 +1,16 @@
-﻿@{
+﻿@model housemaker.Controllers.HomeViewModel
+
+@{
     ViewBag.Title = "Альбом";
 }
 
 @Styles.Render("~/Content/album.css")
+
+<hr />
+
+@Html.Partial("CarouselPartial", Model.Photos)
+
+<hr />
 
 <section class="jumbotron text-center">
     <div class="container">
