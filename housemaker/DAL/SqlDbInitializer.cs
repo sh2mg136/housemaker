@@ -4,10 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using housemaker.Models;
+using Repository;
 
 namespace housemaker.DAL
 {
-    public class SqlDbInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<SqlDbContext>
+    public class SqlDbInitializer : System.Data.Entity.CreateDatabaseIfNotExists<SqlDbContext>
     {
 
         protected override void Seed(SqlDbContext context)
@@ -43,4 +44,27 @@ namespace housemaker.DAL
         }
 
     }
+
+
+    public class BookInitializer : System.Data.Entity.CreateDatabaseIfNotExists<Repository.BookContext>
+    {
+
+        protected override void Seed(Repository.BookContext context)
+        {
+
+            var books = new List<Repository.Book>();
+
+            var book = new Repository.Book()
+            {
+                Name = "Война и мир"
+            };
+
+            books.Add(book);
+            books.ForEach(s => context.Books.Add(s));
+            context.SaveChanges();
+
+        }
+
+    }
+
 }

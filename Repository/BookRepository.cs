@@ -4,9 +4,8 @@ using System.Text;
 
 namespace Repository
 {
-
-
-    public class BookRepository : IDisposable
+    
+    public class BookRepository : IDisposable, IRepository
     {
         private BookContext db = new BookContext();
 
@@ -15,10 +14,12 @@ namespace Repository
             db.Books.Add(b);
             db.SaveChanges();
         }
+
         public IEnumerable<Book> List()
         {
             return db.Books;
         }
+
         public Book Get(int id)
         {
             return db.Books.Find(id);
@@ -35,6 +36,7 @@ namespace Repository
                 }
             }
         }
+
         public void Dispose()
         {
             Dispose(true);

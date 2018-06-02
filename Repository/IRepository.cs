@@ -7,6 +7,9 @@ namespace Repository
     public interface IRepository
     {
 
+        IEnumerable<Book> List();
+
+
     }
 
 }
