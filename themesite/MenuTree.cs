@@ -15,10 +15,11 @@ namespace themesite
     public partial class MenuTree
     {
         public int M_ID { get; set; }
-        public Nullable<int> M_P_ID { get; set; }
+        public int M_P_ID { get; set; }
         public string M_NAME { get; set; }
         public string CONTROLLER_NAME { get; set; }
         public string ACTION_NAME { get; set; }
         public string CSS_CLASS { get; set; }
+        public int SortOrder { get; set; }
     }
 }

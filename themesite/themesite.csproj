@@ -179,6 +179,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\BreadCrumbsHelper.cs" />
     <Compile Include="MenuTree.cs">
       <DependentUpon>EntityDataProvider.tt</DependentUpon>
     </Compile>
@@ -847,6 +848,9 @@
     <Content Include="Views\Test\Menu.cshtml" />
     <Content Include="Views\Test\MenuTest.cshtml" />
     <Content Include="Views\Home\Wellcome.cshtml" />
+    <Content Include="Views\Shared\_LayoutTest.cshtml" />
+    <Content Include="Views\Test\BreadCrumbs.cshtml" />
+    <Content Include="Views\Test\TestAction1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,11 +10,12 @@
             <PropertyRef Name="M_ID" />
           </Key>
           <Property Name="M_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="M_P_ID" Type="int" />
-          <Property Name="M_NAME" Type="varchar" MaxLength="50" />
-          <Property Name="CONTROLLER_NAME" Type="varchar" MaxLength="50" />
-          <Property Name="ACTION_NAME" Type="varchar" MaxLength="50" />
-          <Property Name="CSS_CLASS" Type="varchar" MaxLength="50" />
+          <Property Name="M_P_ID" Type="int" Nullable="false" />
+          <Property Name="M_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CONTROLLER_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ACTION_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CSS_CLASS" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
         </EntityType>
         <Function Name="GetData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="type" Type="int" Mode="In" />
@@ -37,11 +38,12 @@
             <PropertyRef Name="M_ID" />
           </Key>
           <Property Name="M_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="M_P_ID" Type="Int32" />
-          <Property Name="M_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CONTROLLER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ACTION_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CSS_CLASS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="M_P_ID" Type="Int32" Nullable="false" />
+          <Property Name="M_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CONTROLLER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ACTION_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CSS_CLASS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -53,6 +55,7 @@
           <EntitySetMapping Name="MenuTree">
             <EntityTypeMapping TypeName="u0506100_redexsrvdbModel.MenuTree">
               <MappingFragment StoreEntitySet="MenuTree">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
                 <ScalarProperty Name="CSS_CLASS" ColumnName="CSS_CLASS" />
                 <ScalarProperty Name="ACTION_NAME" ColumnName="ACTION_NAME" />
                 <ScalarProperty Name="CONTROLLER_NAME" ColumnName="CONTROLLER_NAME" />

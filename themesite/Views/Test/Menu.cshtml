@@ -1,30 +1,38 @@
 ﻿@model IEnumerable<themesite.Models.MenuListItem>
 
-<aside>
-    <div id="sidebar" class="nav-collapse ">
-        <ul class="sidebar-menu">
-            @{foreach (var firstItem in (Model.Where(s => s.ParentId > 0).Distinct().ToList()))
-                {
-                    <li class="@firstItem.ElementStyle">
-                        <a href="javascript:;">
-                            <i class="@firstItem.CssClass"></i>
-                            @firstItem.Name
-                            <span class="menu-arrow arrow_carrot-right"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @foreach (var secondItem in (Model.Where(s => s.ParentId == firstItem.Id).ToList()))
-                            {
-                                <li class="@firstItem.ElementStyle">
-                                    <a href="/@secondItem.ControllerName/@secondItem.ActionName">
-                                        <i class="@secondItem.CssClass"></i>
-                                        @secondItem.Name
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </li>
-                }
+<ul class="sidebar-menu">
+    @{foreach (var item in Model)
+        {
+            if (item.IsRootElement)
+            {
+                <li class="">
+                    <a href="/@item.ControllerName/@item.ActionName" class="">
+                        <i class="@item.CssClass"></i>
+                        @item.Name
+                    </a>
+                </li>
             }
-        </ul>
-    </div>
-</aside>
+            else if (item.HasChilds)
+            {
+                <li class="sub-menu">
+                    <a class="" href="javascript:;">
+                        <i class="@item.CssClass"></i>
+                        @item.Name
+                        <span class="menu-arrow arrow_carrot-right"></span>
+                    </a>
+                    <ul class="sub">
+                        @foreach (var subItem in (Model.Where(s => s.ParentId == item.Id).ToList()))
+                        {
+                            <li class="@item.ElementStyle">
+                                <a href="/@subItem.ControllerName/@subItem.ActionName" class="">
+                                    <i class="@subItem.CssClass"></i>
+                                    @subItem.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+        }
+    }
+</ul>

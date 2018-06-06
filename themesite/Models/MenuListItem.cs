@@ -15,6 +15,10 @@ namespace themesite.Models
         public string ActionName { get; set; }
         public string CssClass { get; set; }
         public bool IsActive { get; set; }
+        public bool IsRootElement { get; set; }
+        public bool HasChilds { get; set; }
+        public int SortOrder { get; set; }
+
         public string ElementStyle
         {
             get
