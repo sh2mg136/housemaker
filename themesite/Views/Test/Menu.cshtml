@@ -1,0 +1,30 @@
+﻿@model IEnumerable<themesite.Models.MenuListItem>
+
+<aside>
+    <div id="sidebar" class="nav-collapse ">
+        <ul class="sidebar-menu">
+            @{foreach (var firstItem in (Model.Where(s => s.ParentId > 0).Distinct().ToList()))
+                {
+                    <li class="@firstItem.ElementStyle">
+                        <a href="javascript:;">
+                            <i class="@firstItem.CssClass"></i>
+                            @firstItem.Name
+                            <span class="menu-arrow arrow_carrot-right"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @foreach (var secondItem in (Model.Where(s => s.ParentId == firstItem.Id).ToList()))
+                            {
+                                <li class="@firstItem.ElementStyle">
+                                    <a href="/@secondItem.ControllerName/@secondItem.ActionName">
+                                        <i class="@secondItem.CssClass"></i>
+                                        @secondItem.Name
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</aside>

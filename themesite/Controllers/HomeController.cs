@@ -10,6 +10,17 @@ namespace themesite.Controllers
     {
         public ActionResult Index()
         {
+            RedirectToAction("Wellcome");
+            return View();
+        }
+
+        public ActionResult Wellcome()
+        {
+            return View();
+        }
+
+        public ActionResult Dashboard()
+        {
             return View();
         }
 

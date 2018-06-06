@@ -237,8 +237,14 @@
     <Content Include="Content\images\sub_blue_delete.png" />
     <Content Include="Content\images\sub_blue_remove.png" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Resources\testImage.png" />
     <Content Include="Scripts\alert.js" />
     <Content Include="ApplicationInsights.config">
@@ -347,7 +353,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\photos\" />
-    <Folder Include="fonts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
