@@ -44,19 +44,15 @@
         <div id="errormessage"></div>
         <form action="" method="post" role="form" class="contactForm" id="form" name="form">
             <div class="form-group">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя" data-rule="minlen:4" data-msg="Пожалуйста, введите хотя бы 4 символа" />
+                <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя (по желанию)" data-rule="minlen:4" data-msg="Пожалуйста, введите хотя бы 4 символа" />
                 <div class="validation"></div>
             </div>
             <div class="form-group">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Ваш Email" data-rule="email" data-msg="Пожалуйста, укажите корректный email" />
+                <input type="email" class="form-control" name="email" id="email" placeholder="Ваш Email (обязательно)" data-rule="email" data-msg="Пожалуйста, укажите корректный email" />
                 <div class="validation"></div>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Тема" data-rule="minlen:4" data-msg="Пожалуйста, введите не менее 8 знаков в качестве темы сообщения" />
-                <div class="validation"></div>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="message" name="message" rows="5" data-rule="required" data-msg="Пожалуйста, напишите нам..." placeholder="Message"></textarea>
+                <textarea class="form-control" id="message" name="message" rows="5" data-rule="required" data-msg="Текст сообщения" placeholder="Message"></textarea>
                 <div class="validation"></div>
             </div>
 
@@ -124,19 +120,18 @@
               // if ($form.valid()) {
               var name = $('#name').val();
               var email = $('#email').val();
-              var subj = $('#subject').val();
               var msg = $('#message').val();
-              SendMail(name, email, subj, msg);
+              SendMail(name, email, msg);
               // }
 
               setTimeout(function () {
                   // btn.prop('disabled', true);
-                  btn.text('Подожите еще немного...');
-              }, 3 * 1000);
+                  // btn.text('Подожите еще немного...');
+              }, 1 * 1000);
 
             });
 
-            function SendMail(name, email, subj, msg) {
+            function SendMail(name, email, msg) {
 
                 if (email === null || email === '' || email === 'undefined') {
                     ShowError('Укажите Ваше Email для обратной связи');
@@ -158,7 +153,6 @@
                     data: {
                         Name: name,
                         Email: email,
-                        Subject: subj,
                         Message: msg
                     },
                     success: function (result) {
@@ -172,13 +166,15 @@
                                 // $('#error-message-box').text('fuck error').show().fadeIn(100).delay(5000).fadeOut(400);
                                 ShowError(result.ErrorMessage);
                             }
+                            else {
+                                ShowError('Сообщение отправлено!');
+                            }
                         }
                         else {
                             ShowError('Ответ сервера не получен');
                         }
                     },
                     complete: function () {
-                        ShowError('Сообщение отправлено!');
                         btn.text('Отправить сообщение');
                         btn.prop('disabled', false);
                     }
@@ -188,7 +184,7 @@
         });
 
         function ShowError(msg) {
-            $('#error-message-box').text(msg).show().fadeIn(600).delay(5000).fadeOut(300);
+            $('#error-message-box').text(msg).show().fadeIn(600).delay(3000).fadeOut(300);
         }
 
         function ReCaptchaCallback() {

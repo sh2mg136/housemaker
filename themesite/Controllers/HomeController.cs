@@ -54,7 +54,7 @@ namespace themesite.Controllers
 
             if (ModelState.IsValid)
             {
-                var subj = model.Subject ?? "Сообщение с формы обратной связи ";
+                var subj = "Сообщение с формы обратной связи redexsrv";
 
                 if (!string.IsNullOrWhiteSpace(model.Name))
                 {

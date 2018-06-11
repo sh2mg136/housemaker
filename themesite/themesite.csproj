@@ -656,6 +656,7 @@
     <Content Include="img\user.jpg" />
     <Content Include="img\user.png" />
     <Content Include="img\user22.png" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\additional-methods.min.js" />
     <Content Include="Scripts\bootstrap-colorpicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
@@ -757,6 +758,7 @@
     <Content Include="EntityDataProvider.edmx.diagram">
       <DependentUpon>EntityDataProvider.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\excanvas.min.js" />
