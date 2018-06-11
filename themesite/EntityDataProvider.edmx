@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="u0506100_redexsrvdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="MenuTree">
           <Key>
             <PropertyRef Name="M_ID" />
@@ -15,13 +15,29 @@
           <Property Name="CONTROLLER_NAME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ACTION_NAME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CSS_CLASS" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="SORT_ORDER" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'u0506100_redexsrvdb.dbo.TestsTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TestsTable">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Function Name="GetData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="type" Type="int" Mode="In" />
         </Function>
-        <EntityContainer Name="u0506100_redexsrvdbModelStoreContainer">
+        <EntityContainer Name="StoreContainer">
           <EntitySet Name="MenuTree" EntityType="Self.MenuTree" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestsTable" EntityType="Self.TestsTable" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TestsTable].[Id] AS [Id], 
+    [TestsTable].[Name] AS [Name]
+    FROM [dbo].[TestsTable] AS [TestsTable]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -31,7 +47,11 @@
           <FunctionImport Name="GetData">
           <Parameter Name="type" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="MenuTree" EntityType="u0506100_redexsrvdbModel.MenuTree" />
+          <EntitySet Name="MenuTrees" EntityType="u0506100_redexsrvdbModel.MenuTree" />
+          <EntitySet Name="TestsTables" EntityType="u0506100_redexsrvdbModel.TestsTable" />
+          <FunctionImport Name="GetData1">
+            <Parameter Name="type" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="MenuTree">
           <Key>
@@ -39,23 +59,30 @@
           </Key>
           <Property Name="M_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="M_P_ID" Type="Int32" Nullable="false" />
-          <Property Name="M_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CONTROLLER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ACTION_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CSS_CLASS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="M_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CONTROLLER_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACTION_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CSS_CLASS" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SORT_ORDER" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TestsTable">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="u0506100_redexsrvdbModelStoreContainer" CdmEntityContainer="u0506100_redexsrvdbEntities" >
-          <FunctionImportMapping FunctionImportName="GetData" FunctionName="u0506100_redexsrvdbModel.Store.GetData" />
-          <EntitySetMapping Name="MenuTree">
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StoreContainer" CdmEntityContainer="u0506100_redexsrvdbEntities" >
+          <EntitySetMapping Name="MenuTrees">
             <EntityTypeMapping TypeName="u0506100_redexsrvdbModel.MenuTree">
               <MappingFragment StoreEntitySet="MenuTree">
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="SORT_ORDER" ColumnName="SORT_ORDER" />
                 <ScalarProperty Name="CSS_CLASS" ColumnName="CSS_CLASS" />
                 <ScalarProperty Name="ACTION_NAME" ColumnName="ACTION_NAME" />
                 <ScalarProperty Name="CONTROLLER_NAME" ColumnName="CONTROLLER_NAME" />
@@ -65,9 +92,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TestsTables">
+            <EntityTypeMapping TypeName="u0506100_redexsrvdbModel.TestsTable">
+              <MappingFragment StoreEntitySet="TestsTable">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetData1" FunctionName="Store.GetData" />
         </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -79,9 +114,9 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

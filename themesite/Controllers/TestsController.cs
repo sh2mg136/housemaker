@@ -7,11 +7,11 @@ using System.Web.Mvc;
 
 namespace themesite.Controllers
 {
-    public class TestController : Controller
+    public class TestsController : Controller
     {
 
-        u0506100_redexsrvdbEntities objEntity = new u0506100_redexsrvdbEntities();
-                
+        u0506100_redexsrvdbEntities entity = new u0506100_redexsrvdbEntities();
+
         // GET: Test
         public ActionResult Index()
         {
@@ -37,9 +37,9 @@ namespace themesite.Controllers
 
             List<Models.MenuItem> list = new List<Models.MenuItem>
             {
-                new Models.MenuItem { Link = "/Test/Index", LinkName = "Home" },
-                new Models.MenuItem { Link = "/Test/Login", LinkName = "Login" },
-                new Models.MenuItem { Link = "/Test/Registration", LinkName = "Register" }
+                new Models.MenuItem { Link = "/Tests/Index", LinkName = "Home" },
+                new Models.MenuItem { Link = "/Tests/Login", LinkName = "Login" },
+                new Models.MenuItem { Link = "/Tests/Registration", LinkName = "Register" }
             };
             return PartialView("SideMenu", list);
         }
@@ -48,8 +48,7 @@ namespace themesite.Controllers
         {
             try
             {
-                var result = (from m in objEntity.MenuTree
-                              orderby m.SortOrder
+                var result = (from m in entity.MenuTrees
                               select new Models.MenuListItem
                               {
                                   Id = m.M_ID,
@@ -60,7 +59,7 @@ namespace themesite.Controllers
                                   CssClass = m.CSS_CLASS,
                                   HasChilds = false,
                                   IsRootElement = false,
-                                  SortOrder = m.SortOrder
+                                  SortOrder = m.SORT_ORDER
                               })
                               .Distinct()
                               .ToList();
@@ -80,11 +79,21 @@ namespace themesite.Controllers
             catch (Exception ex)
             {
                 var error = ex.Message.ToString();
-                return Content(@"Error
 
-<div> " + error + "" +
-"</div>");
+                if (ex.InnerException != null)
+                {
+                    error += Environment.NewLine;
+                    error += ex.InnerException.Message;
+                }
 
+                Models.BaseModel model = new Models.BaseModel()
+                {
+                    HasErrors = true,
+                    ErrorMessage = error
+                };
+
+                // return Content(@"<div> " + error + "</div>");
+                return View(model);
             }
 
         }

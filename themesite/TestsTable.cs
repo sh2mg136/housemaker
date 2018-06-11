@@ -12,14 +12,9 @@ namespace themesite
     using System;
     using System.Collections.Generic;
     
-    public partial class MenuTree
+    public partial class TestsTable
     {
-        public int M_ID { get; set; }
-        public int M_P_ID { get; set; }
-        public string M_NAME { get; set; }
-        public string CONTROLLER_NAME { get; set; }
-        public string ACTION_NAME { get; set; }
-        public string CSS_CLASS { get; set; }
-        public int SORT_ORDER { get; set; }
+        public long Id { get; set; }
+        public string Name { get; set; }
     }
 }

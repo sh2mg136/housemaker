@@ -1,0 +1,17 @@
+﻿@model themesite.Models.BaseModel
+
+@{
+    ViewBag.Title = "GetMenuList";
+}
+
+<h2></h2>
+
+@if (Model != null && Model.HasErrors)
+{
+    <div class="row">
+        <p>Ошибка</p>
+        <br />
+        <p>@Model.ErrorMessage</p>
+    </div>
+}
+

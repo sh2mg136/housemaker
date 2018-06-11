@@ -5,7 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="7734dee8f1954378ac6e3c4c62873eae" Name="Diagram1" >
-        <EntityTypeShape EntityType="u0506100_redexsrvdbModel.MenuTree" Width="2.375" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="u0506100_redexsrvdbModel.MenuTree" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="u0506100_redexsrvdbModel.TestsTable" Width="1.5" PointX="2.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

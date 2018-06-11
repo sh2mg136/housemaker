@@ -1,14 +1,203 @@
-﻿@{
+﻿@model themesite.Models.ContactMailModel
+
+@{
     ViewBag.Title = "Контакты";
 }
-<h2>@ViewBag.Title.</h2>
 
-<address>
-    RedExSrv<br />
-    Moscow, Russia<br />
-    <abbr title="Phone"></abbr>
-</address>
+<style>
+    #error-message-box {
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        width: 30em;
+        height: 8em;
+        margin-top: -4em; /*set to a negative number 1/2 of your height*/
+        margin-left: -15em; /*set to a negative number 1/2 of your width*/
+        background-color: #f3f3f3;
+        display: none;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 8em; /* the same as your div height */
+        opacity: 0.8;
+    }
 
-<address>
-    <strong>Email:</strong>   <a href="mailto:admin@redexsrv.ru">admin@redexsrv.ru</a><br />
-</address>
+    .error-message {
+        padding-top: 35px;
+        color: #bb3333;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-size: 12px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header"><i class="fa fa fa-bars"></i> @ViewBag.Title</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="recent">
+            <h3>Отправьте сообщение</h3>
+        </div>
+        <div id="sendmessage">Сообщение отправлено. Спасибо!</div>
+        <div id="errormessage"></div>
+        <form action="" method="post" role="form" class="contactForm" id="form" name="form">
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя" data-rule="minlen:4" data-msg="Пожалуйста, введите хотя бы 4 символа" />
+                <div class="validation"></div>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Ваш Email" data-rule="email" data-msg="Пожалуйста, укажите корректный email" />
+                <div class="validation"></div>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Тема" data-rule="minlen:4" data-msg="Пожалуйста, введите не менее 8 знаков в качестве темы сообщения" />
+                <div class="validation"></div>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" id="message" name="message" rows="5" data-rule="required" data-msg="Пожалуйста, напишите нам..." placeholder="Message"></textarea>
+                <div class="validation"></div>
+            </div>
+
+            <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="6LfEzl0UAAAAAGsuC_U4VspAaeI2tFIcOGDeZIwh" data-callback="ReCaptchaCallback"></div>
+            </div>
+
+            <div class="text-left">
+                <button id="Btn_Submit" name="Btn_Submit" type="button" disabled class="btn btn-primary btn-lg">Отправить сообщение</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="recent">
+            <h3>Будьте на связи</h3>
+        </div>
+        <div class="">
+            <p>
+                Воспользуйтесь данной формой для отправки сообщения.
+            </p>
+
+            <br />
+
+            <br />
+
+            <address>
+                Moscow, Russia
+            </address>
+
+            <address>
+                <abbr title="Phone"></abbr>
+            </address>
+
+            <address>
+                <strong>Email:</strong><a href="mailto:admin@redexsrv.ru">admin@redexsrv.ru</a><br />
+            </address>
+
+        </div>
+    </div>
+</div>
+
+<div id="error-message-box">
+    <img src="~/img/info_blue.png"
+         alt="app_icon"
+         style="width:48px; height:48px; text-align:left; vertical-align:top;" />
+    <h2 style="color: gray;">Сообщение</h2>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+      $(document).ready(function () {
+
+          $('#Btn_Submit').click(function (evt) {
+              evt.preventDefault();
+
+              var btn = $(this);
+              btn.prop('disabled', true);
+              btn.text('Отправка сообщения...');
+
+              var $form = $('form');
+              // if ($form.valid()) {
+              var name = $('#name').val();
+              var email = $('#email').val();
+              var subj = $('#subject').val();
+              var msg = $('#message').val();
+              SendMail(name, email, subj, msg);
+              // }
+
+              setTimeout(function () {
+                  // btn.prop('disabled', true);
+                  btn.text('Подожите еще немного...');
+              }, 3 * 1000);
+
+            });
+
+            function SendMail(name, email, subj, msg) {
+
+                if (email === null || email === '' || email === 'undefined') {
+                    ShowError('Укажите Ваше Email для обратной связи');
+                    return;
+                }
+
+                if (msg === null || msg === '' || msg === 'undefined') {
+                    ShowError('Введите текст сообщения');
+                    return;
+                }
+
+                var btn = $("#Btn_Submit");
+
+                var tmpurl = '@Url.Action("Contact", "Home")';
+
+                $.ajax({
+                    url: tmpurl,
+                    type: 'post',
+                    data: {
+                        Name: name,
+                        Email: email,
+                        Subject: subj,
+                        Message: msg
+                    },
+                    success: function (result) {
+                        //console.log(result.IdInvoice);
+                        //$('#IdInvoice').val(result.IdInvoice);
+                        //$('#Weight').val(result.Weight);
+                        //$('#Address').val(result.Address);
+                        if (result !== null) {
+
+                            if (result.HasError) {
+                                // $('#error-message-box').text('fuck error').show().fadeIn(100).delay(5000).fadeOut(400);
+                                ShowError(result.ErrorMessage);
+                            }
+                        }
+                        else {
+                            ShowError('Ответ сервера не получен');
+                        }
+                    },
+                    complete: function () {
+                        ShowError('Сообщение отправлено!');
+                        btn.text('Отправить сообщение');
+                        btn.prop('disabled', false);
+                    }
+                });
+            }
+
+        });
+
+        function ShowError(msg) {
+            $('#error-message-box').text(msg).show().fadeIn(600).delay(5000).fadeOut(300);
+        }
+
+        function ReCaptchaCallback() {
+            var btn = $("#Btn_Submit");
+            btn.prop('disabled', false);
+            // $('#hiddenRecaptcha').valid();
+            // alert('OK');
+        };
+
+    </script>
+
+}

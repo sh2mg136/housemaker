@@ -27,7 +27,8 @@ namespace themesite
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<MenuTree> MenuTree { get; set; }
+        public virtual DbSet<MenuTree> MenuTrees { get; set; }
+        public virtual DbSet<TestsTable> TestsTables { get; set; }
     
         public virtual int GetData(Nullable<int> type)
         {
@@ -36,6 +37,15 @@ namespace themesite
                 new ObjectParameter("type", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetData", typeParameter);
+        }
+    
+        public virtual int GetData1(Nullable<int> type)
+        {
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetData1", typeParameter);
         }
     }
 }
